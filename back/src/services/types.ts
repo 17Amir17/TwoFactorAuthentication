@@ -15,3 +15,5 @@ export interface RegistrationParams {
   username: string;
   password: string;
 }
+
+export interface LoginParams extends RegistrationParams {}

@@ -22,6 +22,7 @@ const errorCodes: ErrorCodes = {
     code: 400,
   },
   userExists: { message: 'User Already Exists', code: 409 },
+  incorrectPassword: { message: 'Incorrect Password', code: 403 },
 };
 
 export default errorCodes;

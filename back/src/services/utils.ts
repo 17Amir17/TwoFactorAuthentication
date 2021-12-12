@@ -1,6 +1,6 @@
 import { userExists } from '../db/users';
 import errorCodes from '../middleware/errorCodes';
-import { RegistrationParams } from './types';
+import { LoginParams, RegistrationParams } from './types';
 
 export function isNumber(num: unknown): num is number {
   return typeof num === 'number' && !isNaN(num);
@@ -14,10 +14,21 @@ export function isObject(obj: unknown): obj is object {
   return typeof obj === 'object' && obj != null;
 }
 
+export function isLoginParams(params: unknown): params is LoginParams {
+  return isObject(params) && 'username' in params && 'password' in params;
+}
+
 export function isRegistrationParams(
   params: unknown
 ): params is RegistrationParams {
   return isObject(params) && 'username' in params && 'password' in params;
+}
+
+export function validateLoginParams(params: unknown): LoginParams {
+  if (!isLoginParams(params) || !isString(params.username)) {
+    throw errorCodes.nameRequired;
+  }
+  return params;
 }
 
 export function validateRegistrationParams(
