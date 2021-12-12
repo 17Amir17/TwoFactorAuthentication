@@ -14,7 +14,7 @@ Content-Type:application/json
 {
     "username": "asdasd",
     "hasTwoFactor": false,
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGFzZCIsInBhc3N3b3JkIjoiJDJiJDEwJEkwVlloNEwuaVlaRmNVM1JDUi52Yy45Mk43WEtuaWE0WkY0Wm45NlJVYkF2ZkdVYWhuSk9HIiwiaGFzVHdvRmFjdG9yIjpmYWxzZSwiaWF0IjoxNjM5MzMwNDM5LCJleHAiOjE2MzkzNjY0Mzl9.JaMdM7u8P0JTqx1S7ndkslXnk2hf-VY2_WqSb-7vFiU"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGFzZCIsInBhc3N3b3JkIjoiJDJiJDEwJHc3SmtET043VHRlbHRTTEViWmcwVE9pRlNaalBGNG1pNG5rb0pWbUZVWWh5U2JxdUs2VjZPIiwiaGFzVHdvRmFjdG9yIjpmYWxzZSwiaWF0IjoxNjM5MzMyMzg4LCJleHAiOjE2MzkzNjgzODh9.PqJ0R_t6kU2EeRv9X3WJvy3lSRAx4XwbX22JPq0MK0s"
   }
 ###
 
@@ -25,4 +25,14 @@ Content-Type:application/json
     "username": "asdasd",
     "password": "123"
 }
+
+###
+
+POST http://localHost:3001/login/qr?code=09856 HTTP/1.1
+Content-Type:application/json
+
+{
+    "username": "asdasd"
+}
+
 

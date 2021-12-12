@@ -26,6 +26,7 @@ const errorCodes: ErrorCodes = {
   invalidRequestUser: { message: 'Invalid request user', code: 400 },
   badToken: { message: 'Bad token', code: 403 },
   alreadyHasTwoFactor: { message: 'Already has two factor', code: 400 },
+  badCode: { message: 'Bad code', code: 403 },
 };
 
 export default errorCodes;

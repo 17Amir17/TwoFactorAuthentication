@@ -45,11 +45,15 @@ export function generateTwoFactor(
   return twofactor.generateSecret({ name: appName, account: username });
 }
 
-export function deleteToken(token: string) {
-  console.log(validTokens[token]);
+export function checkSecret(secret: string, code: string) {
+  const answer = twofactor.verifyToken(secret, code);
+  if (!answer || answer === null) return false;
+  if (answer.delta === 0) return true;
+  return false;
+}
 
+export function deleteToken(token: string) {
   if (validTokens[token]) {
     delete validTokens[token];
-    console.log('TOKEN', validTokens[token]);
   }
 }
