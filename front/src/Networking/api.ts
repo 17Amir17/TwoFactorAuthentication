@@ -29,12 +29,52 @@ export async function login(username: string, password: string) {
       username,
       password,
     });
-    goodAlert(response.data.message);
+    if (response.data.message === '2factor') {
+      return {
+        twoFactor: true,
+        qr: response.data.qr,
+        username: response.data.username,
+      };
+    } else {
+      goodAlert(response.data.message);
+      const user: User = validateUser(response.data.user);
+      return user;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      badAlert('Oopsies', error.response.data.message);
+    }
+    console.log(error);
+    return false;
+  }
+}
+
+export async function sendQRAnswer(code: string, username: string) {
+  try {
+    const response = await api.post(`login/qr?code=${code}`, {
+      username,
+    });
+    goodAlert('GG WP', 'You are in!');
     const user: User = validateUser(response.data.user);
     return user;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      badAlert('Oppsies', error.response.data.message);
+      badAlert('Oopsies', error.response.data.message);
+    }
+    console.log(error);
+    return false;
+  }
+}
+
+export async function requestTwoFactor(user: User) {
+  try {
+    const response = await api.post('register/twofactor', {
+      ...user,
+    });
+    goodAlert('Yay!', response.data.message);
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      badAlert('Oopsies', error.response.data.message);
     }
     console.log(error);
     return false;

@@ -25,7 +25,9 @@ router.post('/twofactor', (req, res) => {
   const validation = generateTwoFactor('twofactor', user.username);
   addTwoFactor(user.username, validation.secret, validation.qr);
   deleteToken(user.token);
-  res.json({ qr: validation.qr, username: user.username });
+  res.json({
+    message: 'You are now safer!',
+  });
 });
 
 router.post('', (req, res) => {

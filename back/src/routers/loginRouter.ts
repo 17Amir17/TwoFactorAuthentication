@@ -21,7 +21,7 @@ router.post('', (req, res) => {
     throw errorCodes.incorrectPassword;
   // Check if user has 2 factor
   if (user.hasTwoFactor) {
-    res.json({ qr: user.qr, username: user.username });
+    res.json({ message: '2factor', qr: user.qr, username: user.username });
     return;
   }
   generateTokenAndSend(res, user);
