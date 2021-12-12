@@ -1,14 +1,31 @@
+import { useRef } from 'react';
+import { register, login } from '../Networking/api';
+
 export default function Login() {
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const registerClick = () => {
+    if (usernameRef.current && passwordRef.current)
+      register(usernameRef.current.value, passwordRef.current.value);
+  };
+
+  const loginClick = () => {
+    if (usernameRef.current && passwordRef.current)
+      login(usernameRef.current.value, passwordRef.current.value);
+  };
+
   return (
     <div className="login-wrapper">
-      <form className="login">
+      <div className="login">
         <h3>Sign In</h3>
         <div className="form-group">
           <label>Username</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
             placeholder="Enter username"
+            ref={usernameRef}
           />
         </div>
 
@@ -18,6 +35,7 @@ export default function Login() {
             type="password"
             className="form-control"
             placeholder="Enter password"
+            ref={passwordRef}
           />
         </div>
 
@@ -34,10 +52,14 @@ export default function Login() {
           </div>
         </div>
         <div className="btns">
-          <button className="btn btn-primary btn-block">Submit</button>
-          <button className="btn btn-primary btn-block">Register</button>
+          <button className="btn btn-primary btn-block" onClick={loginClick}>
+            Login
+          </button>
+          <button className="btn btn-primary btn-block" onClick={registerClick}>
+            Register
+          </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
