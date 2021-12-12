@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import errorHandler from './middleware/errorHanlder';
 import loginRouter from './routers/loginRouter';
+import registerRouter from './routers/registerRouter';
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,7 +17,8 @@ morgan.token('body', (req: Request, _res) => {
 });
 app.use(morgan(':method :url :body'));
 //Routers
-app.use(loginRouter);
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 //Static files
 //Error Handler
 app.use(errorHandler);
