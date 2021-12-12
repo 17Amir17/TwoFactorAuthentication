@@ -5,6 +5,7 @@ import { UserContext } from '../Context/UserContext';
 export default function Homepage() {
   const Context = useContext(UserContext);
   const navigate = useNavigate();
+
   if (!Context?.user) {
     navigate('/');
   }

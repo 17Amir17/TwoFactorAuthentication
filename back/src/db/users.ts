@@ -18,3 +18,15 @@ export function addUser(user: User): void {
 export function userExists(username: string): boolean {
   return !!users[username];
 }
+
+export function addTwoFactor(
+  username: string,
+  secret: string,
+  qr: string
+): void {
+  if (users[username]) {
+    users[username].hasTwoFactor = true;
+    users[username].secret = secret;
+    users[username].qr = qr;
+  }
+}

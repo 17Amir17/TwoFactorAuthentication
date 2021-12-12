@@ -10,6 +10,8 @@ export interface User {
   username: string;
   password: string;
   hasTwoFactor: boolean;
+  qr?: string;
+  secret?: string;
 }
 
 export interface ResponseUser extends Omit<User, 'password'> {

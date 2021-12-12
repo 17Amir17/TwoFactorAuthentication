@@ -15,6 +15,9 @@ router.post('', (req, res) => {
   //Validate password
   if (!compare(user.password, loginParams.password))
     throw errorCodes.incorrectPassword;
+  // Check if user has 2 factor
+  if (user.hasTwoFactor) {
+  }
   //Generate access token
   const token = generateAccessToken(user);
   // Create ResponseUser
@@ -23,6 +26,7 @@ router.post('', (req, res) => {
     token,
   };
   delete responseUser.password;
+  delete responseUser.secret;
   res.json({ message: 'Hello there!', user: responseUser });
 });
 

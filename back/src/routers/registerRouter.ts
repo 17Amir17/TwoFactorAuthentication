@@ -1,9 +1,32 @@
 import express from 'express';
-import { addUser } from '../db/users';
-import { RegistrationParams, User } from '../services/types';
-import { validateRegistrationParams } from '../services/utils';
+import {
+  deleteToken,
+  generateTwoFactor,
+  validateToken,
+} from '../auth_tools/auth_tools';
+import { addTwoFactor, addUser } from '../db/users';
+import errorCodes from '../middleware/errorCodes';
+import { RegistrationParams, ResponseUser, User } from '../services/types';
+import {
+  validateRegistrationParams,
+  validateResponseUser,
+  validateUser,
+} from '../services/utils';
 
 const router = express.Router();
+
+router.post('/twofactor', (req, res) => {
+  const user: ResponseUser = validateResponseUser(req.body);
+  // Validate user token
+  const storedUser = validateUser(validateToken(user.token));
+  if (user.username !== storedUser.username) throw errorCodes.badToken;
+  // Generate two factor
+  if (storedUser.hasTwoFactor) throw errorCodes.alreadyHasTwoFactor;
+  const validation = generateTwoFactor('twofactor', user.username);
+  addTwoFactor(user.username, validation.secret, validation.qr);
+  deleteToken(user.token);
+  res.json(validation.qr);
+});
 
 router.post('', (req, res) => {
   const regParams: RegistrationParams = validateRegistrationParams(req.body);

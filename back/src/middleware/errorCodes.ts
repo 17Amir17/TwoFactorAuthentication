@@ -23,6 +23,9 @@ const errorCodes: ErrorCodes = {
   },
   userExists: { message: 'User Already Exists', code: 409 },
   incorrectPassword: { message: 'Incorrect Password', code: 403 },
+  invalidRequestUser: { message: 'Invalid request user', code: 400 },
+  badToken: { message: 'Bad token', code: 403 },
+  alreadyHasTwoFactor: { message: 'Already has two factor', code: 400 },
 };
 
 export default errorCodes;
