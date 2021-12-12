@@ -10,6 +10,7 @@ router.post('', (req, res) => {
   const newUser: User = {
     username: regParams.username,
     password: regParams.password,
+    hasTwoFactor: false,
   };
   addUser(newUser);
   res.json({ message: 'Welcome!' });

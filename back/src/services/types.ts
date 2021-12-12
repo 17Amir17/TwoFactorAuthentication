@@ -9,6 +9,12 @@ export interface ErrorCode {
 export interface User {
   username: string;
   password: string;
+  hasTwoFactor: boolean;
+}
+
+export interface ResponseUser extends Omit<User, 'password'> {
+  password?: string;
+  token: string;
 }
 
 export interface RegistrationParams {
@@ -17,3 +23,5 @@ export interface RegistrationParams {
 }
 
 export interface LoginParams extends RegistrationParams {}
+
+export type JWTPayload = string | Buffer | object;
