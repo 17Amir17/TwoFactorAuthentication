@@ -1,6 +1,7 @@
 import express, { Request } from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import path from 'path';
 import errorHandler from './middleware/errorHanlder';
 import loginRouter from './routers/loginRouter';
 import registerRouter from './routers/registerRouter';
@@ -20,6 +21,10 @@ app.use(morgan(':method :url :body'));
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 //Static files
+app.use(express.static(path.join(__dirname, '../../front/build/')));
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, '../../front/build/index.html'));
+});
 //Error Handler
 app.use(errorHandler);
 app.listen(PORT, () => {
