@@ -27,6 +27,7 @@ router.post('/twofactor', (req, res) => {
   deleteToken(user.token);
   res.json({
     message: 'You are now safer!',
+    qr: validation.qr,
   });
 });
 

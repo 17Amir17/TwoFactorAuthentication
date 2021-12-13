@@ -32,7 +32,6 @@ export async function login(username: string, password: string) {
     if (response.data.message === '2factor') {
       return {
         twoFactor: true,
-        qr: response.data.qr,
         username: response.data.username,
       };
     } else {
@@ -72,6 +71,9 @@ export async function requestTwoFactor(user: User) {
       ...user,
     });
     goodAlert('Yay!', response.data.message);
+    console.log(response);
+
+    return response.data.qr;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       badAlert('Oopsies', error.response.data.message);

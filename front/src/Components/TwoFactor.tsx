@@ -22,8 +22,13 @@ export function TwoFactor() {
       const code = codeRef.current?.value;
       const user = await sendQRAnswer(code, Context.username);
       if (user) {
-        if (Context) Context.setUser(user);
-        navigate('/homepage');
+        if (Context) {
+          Context.setUser(user);
+          if (user.qr) {
+            Context.setImage(user.qr);
+          }
+          navigate('/homepage');
+        }
       }
     }
   };
@@ -31,9 +36,8 @@ export function TwoFactor() {
   return (
     <div>
       <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={Context ? Context.image : ''} />
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
+          <Card.Title>Two Factor Auth</Card.Title>
           <Card.Text>Enter code from mobile authenticator app</Card.Text>
           <input type="text" placeholder={'code'} ref={codeRef}></input>
           <Button variant="primary" onClick={onSendCode}>

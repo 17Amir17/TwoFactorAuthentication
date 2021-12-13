@@ -24,7 +24,6 @@ export default function Login() {
       );
       if (isObject(user) && 'twoFactor' in user) {
         if (Context) {
-          Context.setImage(user.qr);
           Context.setUsername(user.username);
           Context.setOnline(true);
           navigate('twofactor');

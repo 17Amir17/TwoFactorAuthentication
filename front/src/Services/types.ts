@@ -2,6 +2,7 @@ export interface User {
   username: string;
   hasTwoFactor: boolean;
   token: string;
+  qr?: string;
 }
 
 export interface UserContextType {
